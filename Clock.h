@@ -5,11 +5,15 @@
 #ifndef RELOGIOPONTO_CLOCK_H
 #define RELOGIOPONTO_CLOCK_H
 
-
-//TODO: Criar a lógica do relógio;
-//https://www.simplilearn.com/tutorials/cpp-tutorial/int-to-string-cpp
-//Link acima ajuda a converter int to string... ❤️
 class Clock {
+public:
+    int seconds{};
+    int minutes{};
+    int hours{};
+    int day{};
+    int mouth{};
+    int year{};
+    Clock() = default;
 
 };
 
