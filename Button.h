@@ -16,7 +16,7 @@ public:
     Button() = default;
 
     void setButton(const std::string &t, sf::Vector2f size, int charSize, sf::Color bgColor, sf::Color textColor) {
-        bFont.loadFromFile("C:/Windows/Fonts/Arial.ttf");
+        bFont.loadFromFile("../public/Roboto.ttf");
 
         text.setString(t);
         text.setFillColor(textColor);
