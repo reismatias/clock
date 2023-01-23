@@ -98,18 +98,22 @@ void Graphics::run() {
                     } else if (ev.key.code == sf::Keyboard::Space) { //Usado para resetar a data;
                         hasStarted = false;
                         set.setBackColor(sf::Color::Black);
+                    } else if (ev.key.code == sf::Keyboard::R) {
+                        c1->setHours();
                     }
                     break;
                     //Gerencia eventos de click no mouse;
                 case sf::Event::MouseButtonPressed:
                     if (!hasClicked && hasStarted && startB.isMouseOver(window)) {
-                        //TODO: Fazer o registro da data e da hora de inicio.
+                        //Controla lógica do relógio;
+                        c1->save1 = true;
 
                         //Controla interface gráfica;
                         hasClicked = true;
                         end.setBackColor(sf::Color::Black);
                     } else if (hasClicked && end.isMouseOver(window)) {
-                        //TODO: Fazer o registro da data e da hora de final.
+                        //Controla lógica do relógio;
+                        c1->save2 = true;
 
                         //Controla interface gráfica;
                         end.setBackColor(sf::Color::Transparent);
@@ -118,7 +122,7 @@ void Graphics::run() {
                         //Desativa o botão set e ativa o botão start;
 
                         //Altualiza a partir do console a data e hora inicial do relógio;
-                        c1->setDate();
+                        c1->setStart();
 
                         //Controla interface gráfica;
                         set.setBackColor(sf::Color::Transparent);

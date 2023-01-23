@@ -19,29 +19,44 @@ public:
 
     Clock() = default;
 
-    void setDate() {
+    void setStart() {
         //Altualiza os dados a partir do console:
 
         //Data;
-        cout << "Digite o dia (DD): ";
+        cout << "> Digite o dia (DD): ";
         std::cin >> day;
 
-        cout << "Digite o mes (MM): ";
+        cout << "> Digite o mes (MM): ";
         std::cin >> mouth;
 
-        cout << "Digite o ano (AAAA): ";
+        cout << "> Digite o ano (AAAA): ";
         std::cin >> year;
 
         //Horas e minutos;
-        cout << "Digite as horas (HH): ";
+        cout << "> Digite as horas (HH): ";
         std::cin >> hours;
 
-        cout << "Digite os minutos (MM): ";
+        cout << "> Digite os minutos (MM): ";
         std::cin >> minutes;
 
         seconds = 0;
 
-        std::cout << "Dados alterados\n";
+        std::cout << "> Dados alterados\n";
+    }
+
+    void setHours() {
+        //Altualiza os dados a partir do console:
+
+        //Horas e minutos;
+        cout << "> Digite as horas (HH): ";
+        std::cin >> hours;
+
+        cout << "> Digite os minutos (MM): ";
+        std::cin >> minutes;
+
+        seconds = 0;
+
+        std::cout << "> Dados alterados\n";
     }
 };
 
