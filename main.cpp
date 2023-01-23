@@ -2,7 +2,6 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include <cstring>
 
 //Includes Class
 #include "Graphics.h"
@@ -32,7 +31,7 @@ int main() {
     while (!hasEnded) {
         //Verifica se a interface mandou gravar o último horário;
         if (c1.save1) {
-            //Cria um novo nó na lista;
+            //Cria um nó na lista;
             l.createNewNode();
             aux = l.end;
 
@@ -46,8 +45,10 @@ int main() {
             c1.save1 = false;
 
             //Temporário, apenas para testes;
-            cout << "Inicio: " << aux->hoursS << ":" << aux->minutesS << endl;
             cout << "> Inicio gravado!" << endl;
+            cout << "==================================" << endl;
+            cout << "> Inicio: " << aux->hoursS << ":" << aux->minutesS << endl;
+            cout << "==================================" << endl;
         } else if (c1.save2) {
             //Salva as horas e os minutos do final e calcula quanto tempo passou;
             aux->hoursE = c1.hours;
@@ -57,9 +58,11 @@ int main() {
 
             //Temporário, apenas para testes;
             cout << "> Final gravado!" << endl;
-            cout << "Inicio: " << aux->hoursS << ":" << aux->minutesS << endl;
-            cout << "Fim: " << aux->hoursE << ":" << aux->minutesE << endl;
-            cout << "Total: " << aux->totalHours << ":" << aux->totalMinutes << endl;
+            cout << "==================================" << endl;
+            cout << "> Inicio: " << aux->hoursS << ":" << aux->minutesS << endl;
+            cout << "> Fim: " << aux->hoursE << ":" << aux->minutesE << endl;
+            cout << "> Total: " << aux->totalHours << ":" << aux->totalMinutes << endl;
+            cout << "==================================" << endl;
         }
 
         //Lógica do relógio;
@@ -87,12 +90,11 @@ int main() {
         //cin >> end;
         //}
     }
-
     window.join();
 
+    cout << "> Gravando dados!" << endl;
     //Daqui em diante falta otimizar e comentar o código. :)
 
-    cout << "> Gravando dados!" << endl;
     //Lógica para salavar o log.
     FILE *arq;
 
@@ -103,6 +105,7 @@ int main() {
     int firstDay = aux->dayL;
     int firstMouth = aux->mouthL;
 
+    //AJUSTAR ESSA PARTE! Conforme a sua IDE, mude a referência de ../logs/
     fileName = "../logs/" + to_string(aux->mouthL) + "-" + to_string(aux->yearL) + ".txt";
 
     arq = fopen(fileName.c_str(), "wt");
@@ -173,6 +176,7 @@ int main() {
             firstDay = aux->dayL;
             firstMouth = aux->mouthL;
 
+            //AJUSTAR ESSA PARTE! Conforme a sua IDE, mude a referência de ../logs/
             fileName = "../logs/" + to_string(aux->mouthL) + "-" + to_string(aux->yearL) + ".txt";
             arq = fopen(fileName.c_str(), "wt");
 
@@ -188,6 +192,8 @@ int main() {
     while (!l.empty())
         l.deleteElement();
 
-    cout << "> Programa encerrado!\n";
+    cout << "> Dados gravados!" << endl;
+
+    cout << "> Programa encerrado!" << endl;
     return 0;
 }
