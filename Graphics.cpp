@@ -5,7 +5,6 @@
 #include "Graphics.h"
 #include <string>
 
-#include <chrono>
 #include <thread>
 
 using namespace std;
@@ -16,7 +15,7 @@ Graphics::Graphics() = default;
 Graphics::~Graphics() = default;
 
 void Graphics::run() {
-    std::cout << "thread_2 iniciada!\n";
+    cout << "> thread_2 iniciada!" << endl;
 
     //Window;
     sf::RenderWindow window(sf::VideoMode(680, 380), L"relógio ponto", sf::Style::Titlebar | sf::Style::Close);
@@ -45,8 +44,11 @@ void Graphics::run() {
     seconds.setText("00", 28, sf::Color::Black);
     seconds.setPosition(sf::Vector2f(375, 150));
 
-    set.setButton("INICIAR", {150, 50}, 20, sf::Color::Black, sf::Color::White);
-    set.setPosition({270, 250});
+    set.setButton("R.DATE", {70, 25}, 10, sf::Color::Black, sf::Color::White);
+    set.setPosition({50, 310});
+
+    setH.setButton("R.HORAS", {70, 25}, 10, sf::Color::Black, sf::Color::White);
+    setH.setPosition({50, 280});
 
     startB.setButton("GRAVAR", {150, 50}, 20, sf::Color::Black, sf::Color::White);
     startB.setPosition({270, 250});
@@ -73,10 +75,10 @@ void Graphics::run() {
         seconds.drawTo(window);
 
         //Controla a redenrização dos botões;
-        if (!hasStarted)
-            set.drawTo(window);
+        set.drawTo(window);
+        setH.drawTo(window);
 
-        if (hasStarted && !hasClicked)
+        if (!hasClicked)
             startB.drawTo(window);
 
         if (hasClicked)
@@ -95,16 +97,13 @@ void Graphics::run() {
                 case sf::Event::KeyPressed:
                     if (ev.key.code == sf::Keyboard::Escape) {
                         window.close();
-                    } else if (ev.key.code == sf::Keyboard::Space) { //Usado para resetar a data;
-                        hasStarted = false;
-                        set.setBackColor(sf::Color::Black);
-                    } else if (ev.key.code == sf::Keyboard::R) {
-                        c1->setHours();
+                    } else if (ev.key.code == sf::Keyboard::R) { //Reseta o relógio para data e hora atual;
+                        c1->reset();
                     }
                     break;
                     //Gerencia eventos de click no mouse;
                 case sf::Event::MouseButtonPressed:
-                    if (!hasClicked && hasStarted && startB.isMouseOver(window)) {
+                    if (!hasClicked && startB.isMouseOver(window)) {
                         //Controla lógica do relógio;
                         c1->save1 = true;
 
@@ -118,23 +117,19 @@ void Graphics::run() {
                         //Controla interface gráfica;
                         end.setBackColor(sf::Color::Transparent);
                         hasClicked = false;
-                    } else if (!hasStarted && set.isMouseOver(window)) {
-                        //Desativa o botão set e ativa o botão start;
-
-                        //Altualiza a partir do console a data e hora inicial do relógio;
+                    } else if (set.isMouseOver(window)) {
+                        //Altualiza a partir do console a data e hora do relógio;
                         c1->setStart();
-
-                        //Controla interface gráfica;
-                        set.setBackColor(sf::Color::Transparent);
-                        startB.setBackColor(sf::Color::Black);
-                        hasStarted = true;
+                    } else if (setH.isMouseOver(window)) {
+                        //Atualiza a partir do console somente a hora do relógio;
+                        c1->setHours();
                     }
             }
         }
     }
 
     window.close();
-    std::cout << "thread_2 encerrada!\n";
+    std::cout << "> thread_2 encerrada!\n";
     *hasEnded = true;
 }
 

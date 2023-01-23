@@ -27,6 +27,7 @@ private:
     Text year;
 
     Button set;
+    Button setH;
     Button end;
     Button startB;
 
