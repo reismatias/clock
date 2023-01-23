@@ -3,7 +3,7 @@ project(relogioPonto)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(relogioPonto main.cpp Graphics.cpp Thread.cpp)
+add_executable(relogioPonto main.cpp Graphics.cpp Thread.cpp List.cpp)
 
 # (1) Altere no primeiro set o path/reference para seu diretório SFML, em sua máquina.
 # (2) Comente os dois set abaixo caso esteja no linux.
