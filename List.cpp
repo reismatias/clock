@@ -20,7 +20,7 @@ void List::createNewNode() {
     if (empty()) {
         first = newNode;
         end = newNode;
-        end->next = first;
+        end->next = nullptr;
     } else {
         end->setNext(newNode);
         end = newNode;

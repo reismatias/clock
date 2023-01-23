@@ -13,7 +13,6 @@ using namespace std;
 
 int main() {
     //Objetos lógicos;
-    int end = 0;
     Clock c1;
     bool hasEnded;
 
@@ -30,7 +29,7 @@ int main() {
     window.start();
     cout << "> thread_1 iniciada!\n";
 
-    while (end != 1) {
+    while (!hasEnded) {
         //Verifica se a interface mandou gravar o último horário;
         if (c1.save1) {
             //Cria um novo nó na lista;
@@ -83,14 +82,17 @@ int main() {
         this_thread::sleep_for(chrono::milliseconds(1000));
 
         //Temporário esse encerramento;
-        if (hasEnded) {
-            cout << "> Janela encerrada, digite 1 para encerrar o sistema!\n>";
-            cin >> end;
-        }
+        //if (hasEnded) {
+        //  cout << "> Janela encerrada, digite 1 para encerrar o sistema!\n>";
+        //cin >> end;
+        //}
     }
+
+    window.join();
 
     //Daqui em diante falta otimizar e comentar o código. :)
 
+    cout << "> Gravando dados!" << endl;
     //Lógica para salavar o log.
     FILE *arq;
 
