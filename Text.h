@@ -17,7 +17,7 @@ public:
     Text() = default;
 
     void setText(const std::string &t, int size, sf::Color textColor) {
-        tFont.loadFromFile("C:/Windows/Fonts/Arial.ttf");
+        tFont.loadFromFile("../public/Roboto.ttf");
         text.setString(t);
         textS = t;
         text.setFillColor(textColor);
