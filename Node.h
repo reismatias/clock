@@ -17,8 +17,8 @@ public:
     int hoursE;
     int minutesE;
 
-    int totalHours;
-    int totalMinutes;
+    int totalHours = -1;
+    int totalMinutes = -1;
 
     Node *next;
 

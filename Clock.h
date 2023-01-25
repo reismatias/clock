@@ -34,6 +34,7 @@ public:
         hours = dateHoursCurrent->tm_hour;
         minutes = dateHoursCurrent->tm_min;
         seconds = dateHoursCurrent->tm_sec;
+
     }
 
     //Reseta para a data e horário atual;
@@ -52,73 +53,83 @@ public:
 
     void setStart() {
         //Altualiza os dados a partir do console:
-        bool isRight = false;
-        while (!isRight) {
-            isRight = true;
-            cout << "> Digite o dia (DD): ";
-            std::cin >> day;
+        day = -1;
+        mouth = -1;
+        year = -1;
+        hours = -1;
+        minutes = -1;
 
-            cout << "> Digite o mes (MM): ";
-            std::cin >> mouth;
-
-            cout << "> Digite o ano (AAAA): ";
-            std::cin >> year;
-
-            //Horas e minutos;
-            cout << "> Digite as horas (HH): ";
-            std::cin >> hours;
-
-            cout << "> Digite os minutos (MM): ";
-            std::cin >> minutes;
-
-            seconds = 0;
-
-            //Verifica se os dados estão no formato correto;
-            if (day > 31 || day < 0)
-                isRight = false;
-            if (mouth > 12 || mouth < 0)
-                isRight = false;
-            if (year > 9999 || year < 1000)
-                isRight = false;
-            if (hours > 23 || hours < 0)
-                isRight = false;
-            if (minutes > 60 || minutes < 0)
-                isRight = false;
-
-            if (!isRight)
-                cout << "> Os dados não estão no formato correto!" << endl;
-
+        cout << "> Digite o dia (DD):" << endl;
+        while (day < 1 || day > 24) {
+            printf("> ");
+            day = isInteger();
         }
+
+        cout << "> Digite o mes (MM):" << endl;
+        while (mouth < 1 || mouth > 12) {
+            printf("> ");
+            mouth = isInteger();
+        }
+
+        cout << "> Digite o ano (AAAA):" << endl;
+        while (year < 1000 || year > 9999) {
+            printf("> ");
+            year = isInteger();
+        }
+
+        //Horas e minutos;
+
+        cout << "> Digite as horas (HH):" << endl;
+        while (hours < 0 || hours > 23) {
+            printf("> ");
+            hours = isInteger();
+        }
+
+        cout << "> Digite os minutos (MM):" << endl;
+        while (minutes < 0 || minutes > 60) {
+            printf("> ");
+            minutes = isInteger();
+        }
+
+        seconds = 0;
+
         cout << "> Dados alterados!" << std::endl;
         cout << "==================================" << endl;
     }
 
     void setHours() {
         //Altualiza os dados a partir do console:
-        bool isRight = false;
-        while (!isRight) {
-            isRight = true;
+        hours = -1;
+        minutes = -1;
 
-            cout << "> Digite as horas (HH): ";
-            std::cin >> hours;
-
-            cout << "> Digite os minutos (MM): ";
-            std::cin >> minutes;
-
-            seconds = 0;
-
-            //Verifica se os dados estão no formato correto;
-            if (hours > 23 || hours < 0)
-                isRight = false;
-            if (minutes > 60 || minutes < 0)
-                isRight = false;
-
-            if (!isRight)
-                cout << "> Os dados nao estao no formato correto!" << endl;
+        cout << "> Digite as horas (HH):" << endl;
+        while (hours < 0 || hours > 23) {
+            printf("> ");
+            hours = isInteger();
         }
+
+        cout << "> Digite os minutos (MM):" << endl;
+        while (minutes < 0 || minutes > 60) {
+            printf("> ");
+            minutes = isInteger();
+        }
+
+        seconds = 0;
+
         cout << "> Dados alterados" << endl;
         cout << "==================================" << endl;
     }
+
+    int isInteger() {
+        int x;
+        while (scanf("%d", &x) != 1) {
+            static char temp[256];
+            fgets(temp, sizeof(temp), stdin);
+            printf("> Digite somente numeros: ");
+        }
+        return x;
+    }
+
 };
 
 

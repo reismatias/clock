@@ -44,7 +44,6 @@ int main() {
             aux->minutesS = c1.minutes;
             c1.save1 = false;
 
-            //Temporário, apenas para testes;
             cout << "> Inicio gravado!" << endl;
             cout << "==================================" << endl;
             cout << "> Inicio: " << aux->hoursS << ":" << aux->minutesS << endl;
@@ -56,7 +55,6 @@ int main() {
             aux->calculateTotal();
             c1.save2 = false;
 
-            //Temporário, apenas para testes;
             cout << "> Final gravado!" << endl;
             cout << "==================================" << endl;
             cout << "> Inicio: " << aux->hoursS << ":" << aux->minutesS << endl;
@@ -83,12 +81,6 @@ int main() {
         }
 
         this_thread::sleep_for(chrono::milliseconds(1000));
-
-        //Temporário esse encerramento;
-        //if (hasEnded) {
-        //  cout << "> Janela encerrada, digite 1 para encerrar o sistema!\n>";
-        //cin >> end;
-        //}
     }
     window.join();
 
@@ -101,19 +93,10 @@ int main() {
     string fileName;
     string line;
 
+    //Pega o primeiro nó para percorrer a lista do inicio.
     aux = l.first;
     int firstDay = aux->dayL;
     int firstMouth = aux->mouthL;
-
-    //AJUSTAR ESSA PARTE! Conforme a sua IDE, mude a referência de ../logs/
-    fileName = "../logs/" + to_string(aux->mouthL) + "-" + to_string(aux->yearL) + ".txt";
-
-    arq = fopen(fileName.c_str(), "wt");
-
-    if (arq == nullptr)
-        cout << "> Problemas na criação do arquivo." << endl;
-
-    fprintf(arq, "%.2d/%.2d/%.2d\n", aux->dayL, aux->mouthL, aux->yearL);
 
     int totalHoursD = 0;
     int totalMinutesD = 0;
@@ -121,7 +104,22 @@ int main() {
     int totalH = 0;
     int totalM = 0;
 
-    while (aux != nullptr) {
+    //Verifica se o nó está completo! Porque o totalHours só muda quando o segundo registro é feito.
+    if (aux->totalHours != -1) {
+        //AJUSTAR ESSA PARTE! Conforme a sua IDE, mude a referência de ../logs/
+        fileName = "../logs/" + to_string(aux->mouthL) + "-" + to_string(aux->yearL) + ".txt";
+
+        arq = fopen(fileName.c_str(), "wt");
+
+        if (arq == nullptr)
+            cout << "> Problemas na criação do arquivo." << endl;
+
+        fprintf(arq, "%.2d/%.2d/%.2d\n", aux->dayL, aux->mouthL, aux->yearL);
+    } else
+        cout << "> Sem dados para gravar!" << endl;
+
+    //Roda o loop enquanto o nó atual não for nulo e enquanto o nó estiver completo.
+    while ((aux != nullptr) && (aux->totalHours != -1)) {
         if (aux->mouthL == firstMouth) {
             if (aux->dayL == firstDay) {
                 fprintf(arq, "\t\t  %.2d:%.2d \t %.2d:%.2d \t %.2d:%.2d\n", aux->hoursS, aux->minutesS, aux->hoursE,
@@ -132,7 +130,8 @@ int main() {
                 totalH += aux->totalHours;
                 totalM += aux->totalMinutes;
 
-                if (aux->next == nullptr) {
+                //Verifica se o próximo exite e verifica se o próximo é um nó completo.
+                if (aux->next == nullptr || aux->next->totalHours == -1) {
                     totalHoursD += totalMinutesD / 60;
                     totalMinutesD = totalMinutesD % 60;
                     fprintf(arq, "\t\t\t\t\t Total:  %.2d:%.2d\n", totalHoursD, totalMinutesD);
@@ -187,12 +186,12 @@ int main() {
         }
     }
 
-    fclose(arq);
+    //Só tem arquivo para fechar caso tenha sido aberto alguma vez.
+    if (l.first->totalHours != -1)
+        fclose(arq);
 
     while (!l.empty())
         l.deleteElement();
-
-    cout << "> Dados gravados!" << endl;
 
     cout << "> Programa encerrado!" << endl;
     return 0;
